@@ -1,0 +1,13 @@
+{
+	"authors": [
+		"Cameron"
+	],
+	"copyright": "Copyright © 2019, Cameron",
+	"description": "",
+	"license": "proprietary",
+	"name": "libgamestruct",
+	"dependencies": {
+		"reversineer": "~>0.0",
+		"pixelatrix": "*"
+	}
+}
