@@ -58,20 +58,23 @@ align(1) struct SimpleChar(alias table) {
 	align(1):
 	ubyte val;
 	string toChar() const @safe {
+		import std.format : format;
 		if (val in table) {
 			return table[val];
 		} else {
-			return [val];
+			return format!"[%02X]"(val);
 		}
 	}
 }
 
 align(1) struct SimpleString(alias table, ubyte terminator, size_t Length) {
 	align(1):
+	import siryul : SerializationMethod;
 	ubyte[Length] str;
 	size_t length() const @safe {
 		return Length;
 	}
+	@SerializationMethod
 	string toString() const @safe {
 		string result;
 		foreach (chr; str) {
@@ -79,6 +82,43 @@ align(1) struct SimpleString(alias table, ubyte terminator, size_t Length) {
 				break;
 			}
 			result ~= SimpleChar!table(chr).toChar();
+		}
+		return result;
+	}
+	void opAssign(const string input) @safe {
+		str[] = terminator;
+		foreach (i, inChar; input) {
+			bool found;
+			foreach (k, v; table) {
+				if (v == [inChar]) {
+					found = true;
+					str[i] = k;
+					break;
+				}
+			}
+			assert(found, "Game does not support character '"~inChar~"'");
+		}
+	}
+}
+
+align(1) struct SimpleStrings(alias table, ubyte terminator, size_t Length) {
+	align(1):
+	import siryul : SerializationMethod;
+	ubyte[Length] str;
+	size_t length() const @safe {
+		return Length;
+	}
+	@SerializationMethod
+	string[] toString() const @safe {
+		string[] result;
+		string buf;
+		foreach (chr; str) {
+			if (chr == terminator) {
+				result ~= buf;
+				buf = "";
+			} else {
+				buf ~= SimpleChar!table(chr).toChar();
+			}
 		}
 		return result;
 	}
