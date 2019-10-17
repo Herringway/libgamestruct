@@ -282,3 +282,887 @@ enum Row : ubyte {
 	front,
 	back
 }
+
+enum WindowFlavour {
+	plain,
+	mint,
+	strawberry,
+	banana,
+	peanut
+}
+
+align(1) struct GameState {
+	align(1):
+	EBString!12 mother2PlayerName;
+	EBString!24 playerName;
+	EBString!6 petName;
+	EBString!6 favouriteFood;
+	EBString!12 favouriteThing;
+	uint money;
+	uint bankBalance;
+	ubyte[397] raw;
+	uint timer;
+	WindowFlavour windowFlavour;
+}
+static assert(GameState.sizeof == 473);
+
+align(1) struct Character {
+	align(1):
+	EBString!5 name;
+	ubyte level;
+	uint exp;
+	ushort maxHP;
+	ushort maxPP;
+	ubyte[7] afflictions;
+	ubyte offense;
+	ubyte defense;
+	ubyte speed;
+	ubyte guts;
+	ubyte luck;
+	ubyte vitality;
+	ubyte iq;
+	ubyte baseOffense;
+	ubyte baseDefense;
+	ubyte baseSpeed;
+	ubyte baseGuts;
+	ubyte baseLuck;
+	ubyte baseVitality;
+	ubyte baseIQ;
+	ubyte[14] items;
+	ubyte[4] equipment;
+	uint[2] unknown;
+	ushort positionIndex;
+	uint unknown2;
+	ushort unknown3;
+	ushort currentHP ;
+	ushort currentHPTarget;
+	ushort unknown4;
+	ushort currentPP;
+	ushort currentPPTarget;
+	ushort hpPPWindowOptions;
+	ubyte missRate;
+	ubyte fireResist;
+	ubyte freezeResist;
+	ubyte flashResist;
+	ubyte paralysisResist;
+	ubyte hypnosis_brainshockResist;
+	ubyte boostedSpeed;
+	ubyte boostedGuts;
+	ubyte boostedVitality;
+	ubyte boostedIQ;
+	ubyte boostedLuck;
+	ubyte unknown5;
+	ubyte unknown6;
+	ubyte unknown7;
+}
+
+align(1) struct SaveSlot {
+	align(1):
+	char[20] signature;
+	ubyte[8] unknown;
+	ushort checksum;
+	ushort checksumComplement;
+	GameState state;
+	Character[6] playerChars;
+	ubyte[128] eventFlags;
+	ubyte[77] unused2;
+}
+
+align(1) struct SRAM {
+	align(1):
+	SaveSlot[2][3] saves;
+	ubyte[510] unused1;
+	ushort unknown;
+}
+
+static assert(SRAM.sizeof == 8192);
+
+align(1) struct Battler {
+	align(1):
+	ubyte id;
+	ubyte unknown;
+	ubyte sprite;
+	ubyte unknown2;
+	ushort currentAction;
+	ubyte actionOrderVar;
+	ubyte unknown3;
+	ubyte currentActionArgument;
+	ubyte unknown4;
+	ubyte currentTarget;
+	bool theFlag;
+	ubyte consciousness;
+	ubyte unknown5;
+	bool isEnemy;
+	ubyte npcID;
+	Row row;
+	ushort hp;
+	ushort hpTarget;
+	ushort hpMax;
+	ushort pp;
+	ushort ppTarget;
+	ushort ppMax;
+	ubyte[7] afflictions;
+	bool guarding;
+	ubyte shieldHP;
+	ushort offense;
+	ushort defense;
+	ushort speed;
+	ushort guts;
+	ushort luck;
+	ubyte vitality;
+	ubyte iq;
+	ubyte baseOffense;
+	ubyte baseDefense;
+	ubyte baseSpeed;
+	ubyte baseGuts;
+	ubyte baseLuck;
+	ubyte paralysisResist;
+	ubyte freezeResist;
+	ubyte flashResist;
+	ubyte fireResist;
+	ubyte brainshockResist;
+	ubyte hypnosisResist;
+	ushort money;
+	ushort exp;
+	ubyte vramSpriteIndex;
+	ubyte spriteX;
+	ubyte spriteY;
+	ubyte initiative;
+	ubyte unknown6;
+	ubyte[3] unknown7;
+	ubyte unknown8;
+	ubyte unknown9;
+	ubyte id2;
+	ubyte[2] unknown10;
+}
+static assert(Battler.sizeof == 78);
+
+align(1) struct WindowStats {
+	align(1):
+	ubyte[82] unknown;
+}
+align(1) struct Unknown89D4Entry {
+	align(1):
+	ushort unknown01;
+	ushort unknown02;
+	ushort unknown03;
+	ushort unknown04;
+	ushort unknown05;
+	ushort unknown06;
+	ushort unknown07;
+	ubyte unknown08;
+	ubyte unknown09;
+	ubyte[3] unknown10;
+	ubyte[24] unknown11;
+	ushort unknown12;
+	ubyte[45] unknown13;
+}
+
+align(1) struct RAM {
+	align(1):
+	 //ubyte[38901] raw;
+	ubyte UNKNOWN_7E0000;
+	ubyte UNKNOWN_7E0001;
+	ubyte UNKNOWN_7E0002;
+	ushort UNKNOWN_7E0003;
+	ushort UNKNOWN_7E0005;
+	//Some kind of pointer?
+	ushort UNKNOWN_7E0007;
+	ubyte UNKNOWN_7E0009;
+	ubyte UNKNOWN_7E000A;
+	ubyte UNKNOWN_7E000B;
+	ubyte UNKNOWN_7E000C;
+	ubyte INIDISP_MIRROR;
+	ubyte OBSEL_MIRROR;
+	ubyte UNKNOWN_7E000F;
+	ubyte MOSAIC_MIRROR;
+	ubyte UNKNOWN_7E0011;
+	ubyte UNKNOWN_7E0012;
+	ubyte UNKNOWN_7E0013;
+	ubyte UNKNOWN_7E0014;
+	ubyte BG12NBA_MIRROR;
+	ubyte UNKNOWN_7E0016;
+	ubyte UNUSED_WH2_MIRROR;
+	ushort UNKNOWN_7E0018;
+	ubyte TM_MIRROR;
+	ubyte TD_MIRROR;
+	ubyte UNKNOWN_7E001C;
+	ubyte UNKNOWN_7E001D;
+	ubyte UNKNOWN_7E001E;
+	ubyte HDMAEN_MIRROR;
+	ubyte UNKNOWN_7E0020;
+	ubyte UNKNOWN_7E0021;
+	ubyte UNKNOWN_7E0022;
+	ubyte UNKNOWN_7E0023;
+	ushort RAND_A;
+	ushort RAND_B;
+	ubyte UNKNOWN_7E0028;
+	ubyte UNKNOWN_7E0029;
+	ubyte UNKNOWN_7E002A;
+	ubyte UNKNOWN_7E002B;
+	ubyte UNKNOWN_7E002C;
+	ubyte UNKNOWN_7E002D;
+	ubyte UNKNOWN_7E002E;
+	ubyte UNKNOWN_7E002F;
+	ubyte UNKNOWN_7E0030;
+	ushort BG1_X_POS;
+	ushort BG1_Y_POS;
+	ushort BG2_X_POS;
+	ushort BG2_Y_POS;
+	ushort BG3_X_POS;
+	ushort BG3_Y_POS;
+	ushort BG4_X_POS;
+	ushort BG4_Y_POS;
+	ushort[2] BG1_X_POS_BUF;
+	ushort[2] BG1_Y_POS_BUF;
+	ushort[2] BG2_X_POS_BUF;
+	ushort[2] BG2_Y_POS_BUF;
+	ushort[2] BG3_X_POS_BUF;
+	ushort[2] BG3_Y_POS_BUF;
+	ushort[2] BG4_X_POS_BUF;
+	ushort[2] BG4_Y_POS_BUF;
+	ushort UNKNOWN_7E0061;
+	ushort UNKNOWN_7E0063;
+	ushort PAD_1_STATE;
+	ushort PAD_2_STATE;
+	ushort PAD_1_HELD;
+	ushort PAD_2_HELD;
+	ushort PAD_1_PRESS;
+	ushort PAD_2_PRESS;
+	ubyte[6] unknown;
+	ubyte UNKNOWN_7E0077;
+	ubyte UNKNOWN_7E0078;
+	ubyte UNKNOWN_7E0079;
+	ubyte UNKNOWN_7E007A;
+	ubyte UNKNOWN_7E007B;
+	ubyte UNKNOWN_7E007C;
+	ubyte UNKNOWN_7E007D;
+	ubyte UNKNOWN_7E007E;
+	ubyte UNKNOWN_7E007F;
+	ubyte UNKNOWN_7E0080;
+	ushort UNKNOWN_7E0081;
+	ushort UNKNOWN_7E0083;
+	ushort UNKNOWN_7E0085;
+	ushort UNKNOWN_7E0087;
+	ushort UNKNOWN_7E0089;
+	ushort UNKNOWN_7E008B;
+	ushort UNKNOWN_7E008D;
+	ushort UNKNOWN_7E008F;
+	ubyte UNKNOWN_7E0091;
+	ushort UNKNOWN_7E0092;
+	ushort UNKNOWN_7E0094;
+	ubyte UNKNOWN_7E0096;
+	ushort UNKNOWN_7E0097;
+	ubyte UNKNOWN_7E0099;
+	ubyte[2] UNKNOWN_7E009A;
+	ushort UNKNOWN_7E009C;
+	ushort UNKNOWN_7E009E;
+	ubyte UNKNOWN_7E00A0;
+	ubyte UNKNOWN_7E00A1;
+	ubyte UNKNOWN_7E00A2;
+	ubyte UNKNOWN_7E00A3;
+	ubyte UNKNOWN_7E00A4;
+	ubyte UNKNOWN_7E00A5;
+	ubyte UNKNOWN_7E00A6;
+	uint TIMER;
+	ubyte UNKNOWN_7E00AB;
+	ushort UNKNOWN_7E00AC;
+	ushort UNKNOWN_7E00AE;
+	ubyte UNKNOWN_7E00B0;
+	ubyte UNKNOWN_7E00B1;
+	ushort UNKNOWN_7E00B2;
+	ubyte TEMP_DIVIDEND;
+	ubyte UNKNOWN_7E00B5;
+	ubyte UNKNOWN_7E00B6;
+	ubyte UNKNOWN_7E00B7;
+	ubyte UNKNOWN_7E00B8;
+	ubyte UNKNOWN_7E00B9;
+	ushort UNKNOWN_7E00BA;
+	ushort UNKNOWN_7E00BC;
+	ushort UNKNOWN_7E00BE;
+	ubyte UNKNOWN_7E00C0;
+	ubyte[3] UNKNOWN_7E00C1;
+	@Offset(0x000C4)
+	ushort UNKNOWN_7E00C4;
+	ushort SPC_DATA_PTR;
+	ushort UNKNOWN_7E00C8;
+	ushort UNKNOWN_7E00CA;
+	ushort UNKNOWN_7E00CC;
+	ubyte UNKNOWN_7E00CE;
+	ubyte UNKNOWN_7E00CF;
+
+	@Offset(0x000200)
+	BGR555[8][4] CUR_TEXT_PAL;
+	BGR555[8][22] CUR_MAP_PAL;
+	BGR555[8][6] CUR_PARTY_PAL;
+	ubyte UNKNOWN_7E0400;
+
+	@Offset(0x000A34)
+	ushort UNKNOWN_7E0A34;
+	ushort UNKNOWN_7E0A36;
+	ushort UNKNOWN_7E0A38;
+	ushort UNKNOWN_7E0A3A;
+	ushort UNKNOWN_7E0A3C;
+	ushort UNKNOWN_7E0A3E;
+	ushort UNKNOWN_7E0A40;
+	ushort UNKNOWN_7E0A42;
+	ushort UNKNOWN_7E0A44;
+	ushort UNKNOWN_7E0A46;
+	ushort UNKNOWN_7E0A48;
+	ushort UNKNOWN_7E0A4A;
+	ushort UNKNOWN_7E0A4C;
+	ushort UNKNOWN_7E0A4E;
+	ushort UNKNOWN_7E0A50;
+	ushort UNKNOWN_7E0A52;
+	ubyte UNKNOWN_7E0A54;
+
+	@Offset(0x000A58)
+	ushort UNKNOWN_7E0A58;
+	uint MOVEMENT_42_LOADED_PTR;
+	ushort UNKNOWN_7E0A5E;
+	ushort UNKNOWN_7E0A60;
+	ubyte LOADED_SPRITE_MOVEMENT_CODES_TABLE;
+
+	@Offset(0x000A9E)
+	ushort[30] UNKNOWN_30X2_TABLE_1;
+	ushort[30] UNKNOWN_30X2_TABLE_2;
+	ushort[30] SPRITE_SCREEN_X_TABLE;
+	ushort[30] SPRITE_SCREEN_Y_TABLE;
+	ushort[30] SPRITE_ABS_X_TABLE;
+	ushort[30] SPRITE_ABS_Y_TABLE;
+	ushort[30] SPRITE_ABS_Z_TABLE;
+	ushort[30] SPRITE_ABS_X_FRACTION_TABLE;
+	ushort[30] SPRITE_ABS_Y_FRACTION_TABLE;
+	ushort[30] SPRITE_ABS_Z_FRACTION_TABLE;
+	ushort[30] SPRITE_DELTA_X_TABLE;
+	ushort[30] SPRITE_DELTA_Y_TABLE;
+	ushort[30] SPRITE_DELTA_Z_TABLE;
+	ushort[30] SPRITE_DELTA_X_FRACTION_TABLE;
+	ushort[30] SPRITE_DELTA_Y_FRACTION_TABLE;
+	ushort[30] SPRITE_DELTA_Z_FRACTION_TABLE;
+	ushort[30] UNKNOWN_30X2_TABLE_3;
+	ushort[30] UNKNOWN_30X2_TABLE_4;
+	ushort[30] UNKNOWN_30X2_TABLE_5;
+	ushort[30] UNKNOWN_30X2_TABLE_6;
+	ushort[30] UNKNOWN_30X2_TABLE_7;
+	ushort[30] UNKNOWN_30X2_TABLE_8;
+	ushort[30] UNKNOWN_30X2_TABLE_9;
+	ushort[30] UNKNOWN_30X2_TABLE_10;
+	ushort[30] UNKNOWN_30X2_TABLE_11;
+	ushort[30] UNKNOWN_30X2_TABLE_12;
+	ushort[30] UNKNOWN_30X2_TABLE_13;
+	ushort[30] UNKNOWN_30X2_TABLE_14;
+	ushort[30] UNKNOWN_30X2_TABLE_15;
+	ushort[30] UNKNOWN_30X2_TABLE_16;
+	ushort[30] UNKNOWN_30X2_TABLE_17;
+	ushort[30] UNKNOWN_30X2_TABLE_18;
+	ushort[30] UNKNOWN_30X2_TABLE_19;
+	ubyte UNKNOWN_7E125A;
+
+	@Offset(0x0012E6)
+	ubyte UNKNOWN_7E12E6;
+
+	@Offset(0x001372)
+	ushort[30] UNKNOWN_30X2_TABLE_20;
+
+	@Offset(0x0013FE)
+	ushort[30] UNKNOWN_30X2_TABLE_21;
+
+	@Offset(0x00148A)
+	ushort[30] UNKNOWN_30X2_TABLE_22;
+
+	@Offset(0x001516)
+	ushort[30] UNKNOWN_30X2_TABLE_23;
+
+	@Offset(0x001A02)
+	ubyte[8] UNKNOWN_7E1A02;
+	ubyte[8] UNKNOWN_7E1A0A;
+	ubyte[8] UNKNOWN_7E1A12;
+	ubyte[8] UNKNOWN_7E1A1A;
+	ubyte[8] UNKNOWN_7E1A22;
+	ubyte[8] UNKNOWN_7E1A2A;
+	ubyte[8] UNKNOWN_7E1A32;
+	ubyte[8] UNKNOWN_7E1A3A;
+	ushort UNKNOWN_7E1A42;
+	ushort UNKNOWN_7E1A44;
+	ushort UNKNOWN_7E1A46;
+	ushort UNKNOWN_7E1A48;
+	ubyte UNKNOWN_7E1A4A;
+
+	@Offset(0x001A86)
+	ubyte UNKNOWN_7E1A86;
+
+	@Offset(0x001AC2)
+	ubyte UNKNOWN_7E1AC2;
+
+	@Offset(0x001ACA)
+	ubyte UNKNOWN_7E1ACA;
+	ubyte UNKNOWN_7E1ACB;
+	ushort UNKNOWN_7E1ACC;
+	ubyte UNKNOWN_7E1ACE;
+
+	@Offset(0x001AD2)
+	ushort UNKNOWN_7E1AD2;
+	ushort UNKNOWN_7E1AD4;
+	ubyte UNKNOWN_7E1AD6;
+
+	@Offset(0x001B56)
+	ubyte UNKNOWN_7E1B56;
+
+	@Offset(0x001B6E)
+	ubyte[24] UNKNOWN_7E1B6E;
+	ubyte[24] UNKNOWN_7E1B86;
+	ushort UNKNOWN_7E1B9E;
+	ubyte UNKNOWN_7E1BA0;
+	ushort UNKNOWN_7E1BA1;
+	ushort UNKNOWN_7E1BA3;
+	ubyte UNKNOWN_7E1BA5;
+	ubyte UNKNOWN_7E1BA6;
+	ubyte UNKNOWN_7E1BA7;
+	ubyte UNKNOWN_7E1BA8;
+	ubyte UNKNOWN_7E1BA9;
+	ubyte UNKNOWN_7E1BAA;
+
+	@Offset(0x001BCA)
+	ushort UNKNOWN_7E1BCA;
+	ushort UNKNOWN_7E1BCC;
+	ushort UNKNOWN_7E1BCE;
+	ushort UNKNOWN_7E1BD0;
+	ushort UNKNOWN_7E1BD2;
+	ubyte UNKNOWN_7E1BD4;
+
+	@Offset(0x001F00)
+	ubyte[0x100] STACK;
+
+	@Offset(0x002400)
+	ushort UNKNOWN_7E2400;
+	ushort UNKNOWN_7E2402;
+	ubyte UNKNOWN_7E2404;
+
+	@Offset(0x002444)
+	ubyte UNKNOWN_7E2444;
+
+	@Offset(0x002484)
+	ubyte UNKNOWN_7E2484;
+
+	@Offset(0x0024C4)
+	ubyte UNKNOWN_7E24C4;
+
+	@Offset(0x002504)
+	ushort UNKNOWN_7E2504;
+	ubyte UNKNOWN_7E2506;
+
+	@Offset(0x002546)
+	ubyte UNKNOWN_7E2546;
+
+	@Offset(0x002586)
+	ubyte UNKNOWN_7E2586;
+
+	@Offset(0x0025C6)
+	ubyte UNKNOWN_7E25C6;
+
+	@Offset(0x002606)
+	ushort UNKNOWN_7E2606;
+	ubyte UNKNOWN_7E2608;
+
+	@Offset(0x002648)
+	ubyte UNKNOWN_7E2648;
+
+	@Offset(0x002688)
+	ubyte UNKNOWN_7E2688;
+
+	@Offset(0x0026C8)
+	ubyte UNKNOWN_7E26C8;
+
+	@Offset(0x002708)
+	ubyte UNKNOWN_7E2708;
+
+	@Offset(0x00270A)
+	ubyte UNKNOWN_7E270A;
+
+	@Offset(0x00274A)
+	ubyte UNKNOWN_7E274A;
+
+	@Offset(0x00278A)
+	ubyte UNKNOWN_7E278A;
+
+	@Offset(0x0027CA)
+	ubyte UNKNOWN_7E27CA;
+
+	@Offset(0x00280A)
+	ushort UNKNOWN_7E280A;
+	ushort[30] UNKNOWN_30X2_TABLE_23_;
+	ushort UNKNOWN_7E2848;
+	ushort UNKNOWN_7E284A;
+	ushort[30] UNKNOWN_7E284C;
+	ushort UNKNOWN_7E2888;
+	ushort UNKNOWN_7E288A;
+	ushort UNKNOWN_7E288C;
+	ushort UNKNOWN_7E288E;
+	ushort UNKNOWN_7E2890;
+	ushort UNKNOWN_7E2892;
+	ushort UNKNOWN_7E2894;
+	ushort UNKNOWN_7E2896;
+	ushort UNKNOWN_7E2898;
+	ushort UNKNOWN_7E289A;
+	ushort UNKNOWN_7E289C;
+	ushort[30] UNKNOWN_30X2_TABLE_24;
+	ushort[30] UNKNOWN_30X2_TABLE_25;
+	ushort[30] UNKNOWN_30X2_TABLE_26;
+	ushort[30] UNKNOWN_30X2_TABLE_27;
+	ushort[30] UNKNOWN_30X2_TABLE_28;
+	ushort[30] UNKNOWN_30X2_TABLE_29;
+	ushort[30] UNKNOWN_30X2_TABLE_30;
+	ushort[30] UNKNOWN_30X2_TABLE_31;
+	ushort[30] UNKNOWN_30X2_TABLE_32;
+	ushort[30] UNKNOWN_30X2_TABLE_33;
+	//initial direction...?
+	ushort[30] UNKNOWN_30X2_TABLE_34;
+	ushort[30] UNKNOWN_30X2_TABLE_35;
+	ushort[30] UNKNOWN_30X2_TABLE_36;
+	ushort[30] UNKNOWN_30X2_TABLE_37;
+	ushort[30] UNKNOWN_30X2_TABLE_38;
+	ushort[30] UNKNOWN_30X2_TABLE_40;
+	ushort[30] UNKNOWN_30X2_TABLE_41;
+	ushort[30] LOADED_TPT_ENTRIES;
+	ushort[30] LOADED_TPT_ENTRIES_SPRITES;
+	ushort[30] UNKNOWN_30X2_TABLE_42;
+	ushort[30] UNKNOWN_30X2_TABLE_43;
+	ushort[30] UNKNOWN_30X2_TABLE_44;
+	ushort[30] UNKNOWN_30X2_TABLE_45;
+	ushort[30] UNKNOWN_30X2_TABLE_46;
+	ushort[30] UNKNOWN_7E2E3E;
+	ushort[30] UNKNOWN_7E2E7A;
+	ushort[30] MAP_ENTITY_MUSHROOMIZED_OVERLAY_PTRS;
+	ushort[30] UNKNOWN_7E2EF2;
+	ushort[30] UNKNOWN_7E2F2E;
+	ushort[30] MAP_ENTITY_SWEATING_OVERLAY_PTRS;
+	ushort[30] UNKNOWN_7E2FA6;
+	ushort[30] UNKNOWN_7E2FE2;
+	ushort[30] MAP_ENTITY_RIPPLE_OVERLAY_PTRS;
+	ushort[30] UNKNOWN_7E305A;
+	ushort[30] UNKNOWN_7E3096;
+	ushort[30] MAP_ENTITY_BIG_RIPPLE_OVERLAY_PTRS;
+	ushort[30] UNKNOWN_7E310E;
+	ushort[30] UNKNOWN_7E314A;
+	ubyte UNKNOWN_7E3186;
+
+	@Offset(0x003492)
+	ubyte[1664] UNKNOWN_7E3492;
+	ubyte[8*3] UNKNOWN_7E3B12;
+
+	@Offset(0x003C14)
+	ushort UNKNOWN_7E3C14;
+	ushort UNKNOWN_7E3C16;
+	ushort UNKNOWN_7E3C18;
+	ushort UNKNOWN_7E3C1A;
+	ushort UNKNOWN_7E3C1C;
+	ushort UNKNOWN_7E3C1E;
+	ushort UNKNOWN_7E3C20;
+	ubyte[1866] UNKNOWN_7E3C22;
+	@Offset(0x00436C)
+	ushort DEBUG;
+	ushort UNKNOWN_7E436E;
+	ushort UNKNOWN_7E4370;
+	ushort UNKNOWN_7E4372;
+	ushort UNKNOWN_7E4374;
+	ubyte UNKNOWN_7E4376;
+
+	@Offset(0x004380)
+	ushort UNKNOWN_7E4380;
+	ubyte UNKNOWN_7E4382;
+
+	@Offset(0x00438A)
+	ushort UNKNOWN_7E438A;
+	ushort UNKNOWN_7E438C;
+	ubyte CURRENT_SECTOR_ATTRIBUTES;
+
+	@Offset(0x0043D0)
+	ushort UNKNOWN_7E43D0;
+	ushort UNKNOWN_7E43D2;
+	ushort UNKNOWN_7E43D4;
+	ushort UNKNOWN_7E43D6;
+	ushort UNKNOWN_7E43D8;
+	ubyte UNKNOWN_7E43DA;
+
+	@Offset(0x00445C)
+	ushort UNKNOWN_7E445C;
+	ushort UNKNOWN_7E445E;
+	ubyte UNKNOWN_7E4460;
+
+	@Offset(0x004472)
+	ushort UNKNOWN_7E4472;
+	ubyte UNKNOWN_7E4474;
+
+	@Offset(0x004676)
+	ubyte UNKNOWN_7E4676;
+
+	@Offset(0x00467A)
+	//an ID for the UNKNOWN_C42F8C table
+	ushort UNKNOWN_7E467A;
+	ushort UNKNOWN_7E467C;
+	ubyte SPRITE_TABLE_7E467E;
+
+	@Offset(0x004A00)
+	ubyte UNKNOWN_7E4A00;
+	ubyte[87] UNKNOWN_7E4A01;
+	@Offset(0x004A58)
+	ushort UNKNOWN_7E4A58;
+	ushort UNKNOWN_7E4A5A;
+	ushort UNKNOWN_7E4A5C;
+	ushort UNKNOWN_7E4A5E;
+	ubyte MAGIC_BUTTERFLY;
+
+	@Offset(0x004A66)
+	ushort SHOW_NPC_FLAG;
+	ubyte UNKNOWN_7E4A68;
+
+	@Offset(0x004A72)
+	ubyte UNKNOWN_7E4A72;
+
+	@Offset(0x004A8C)
+	ubyte CURRENT_BATTLE_GROUP;
+
+	@Offset(0x004DBA)
+	ushort UNKNOWN_7E4DBA;
+	ubyte BATTLE_INITIATIVE;
+
+	@Offset(0x004DC2)
+	ushort BATTLE_DEBUG;
+	ushort UNKNOWN_7E4DC4;
+	ushort UNKNOWN_7E4DC6;
+	ubyte CHOSEN_FOUR_PTRS;
+
+	@Offset(0x004DD4)
+	ushort UNKNOWN_7E4DD4;
+	ubyte UNKNOWN_7E4DD6;
+
+	@Offset(0x005156)
+	ubyte[0xC00] PLAYER_POSITION_BUFFER;
+	ushort MISC_DEBUG_FLAGS;
+	ushort UNKNOWN_7E5D58;
+	ushort UNKNOWN_7E5D5A;
+	ushort UNKNOWN_7E5D5C;
+	ushort UNKNOWN_7E5D5E;
+	ushort BATTLE_SWIRL_COUNTDOWN;
+	ushort CURRENT_TPT_ENTRY;
+	ushort UNKNOWN_7E5D64;
+	ubyte[12] UNKNOWN_7E5D66;
+	ushort UNKNOWN_7E5D72;
+	ushort UNKNOWN_7E5D74;
+	ushort UNKNOWN_7E5D76;
+	ubyte UNKNOWN_7E5D78;
+
+	@Offset(0x005D8C)
+	ushort UNKNOWN_7E5D8C;
+
+	@Offset(0x005D98)
+	ushort OVERWORLD_STATUS_SUPPRESSION;
+	ubyte UNKNOWN_7E5D9A;
+
+	@Offset(0x005DA0)
+	ushort MUSHROOMIZED_WALKING_FLAG;
+	ushort UNKNOWN_7E5DA2;
+	ushort UNKNOWN_7E5DA4;
+	ushort UNKNOWN_7E5DA6;
+	ushort UNKNOWN_7E5DA8;
+	ushort UNKNOWN_7E5DAA;
+	ushort UNKNOWN_7E5DAC;
+	ubyte UNKNOWN_7E5DAE;
+
+	@Offset(0x005DB4)
+	ushort UNKNOWN_7E5DB4;
+	ushort UNKNOWN_7E5DB6;
+	ushort UNKNOWN_7E5DB8;
+	ushort UNKNOWN_7E5DBA;
+	ushort UNKNOWN_7E5DBC;
+	ushort UNKNOWN_7E5DBE;
+	ushort UNKNOWN_7E5DC0;
+	ushort UNKNOWN_7E5DC2;
+	ushort UNKNOWN_7E5DC4;
+	ubyte UNKNOWN_7E5DC6;
+
+	@Offset(0x005DCA)
+	ushort UNKNOWN_7E5DCA;
+	ushort UNKNOWN_7E5DCC;
+	ushort UNKNOWN_7E5DCE;
+	ushort UNKNOWN_7E5DD0;
+	ushort UNKNOWN_7E5DD2;
+	ushort UNKNOWN_7E5DD4;
+	ushort UNKNOWN_7E5DD6;
+	ushort UNKNOWN_7E5DD8;
+	ushort UNKNOWN_7E5DDA;
+	ushort UNKNOWN_7E5DDC;
+	ushort UNKNOWN_7E5DDE;
+	ubyte UNKNOWN_7E5DE0;
+
+	@Offset(0x005DEA)
+	ushort UNKNOWN_7E5DEA;
+	uint UNKNOWN_7E5DEC;
+
+	@Offset(0x005E02)
+	ushort UNKNOWN_7E5E02;
+	ushort UNKNOWN_7E5E04;
+	uint[12] UNKNOWN_7E5E06;
+	//An index for the preceding table?
+	ushort UNKNOWN_7E5E36;
+	uint UNKNOWN_7E5E38;
+
+	@Offset(0x005E6C)
+	ubyte UNKNOWN_7E5E6C;
+	ubyte UNKNOWN_7E5E6D;
+	ushort UNKNOWN_7E5E6E;
+	ubyte UNKNOWN_7E5E70;
+	ushort UNKNOWN_7E5E71;
+	ushort UNKNOWN_7E5E73;
+	ubyte UNKNOWN_7E5E75;
+	ubyte UNKNOWN_7E5E76;
+	ubyte UNKNOWN_7E5E77;
+	ubyte UNKNOWN_7E5E78;
+	ubyte UNKNOWN_7E5E79;
+	ushort UNKNOWN_7E5E7A;
+	ubyte UNKNOWN_7E5E7C;
+
+	@Offset(0x007C42)
+	ubyte[32] UNKNOWN_7E7C42;
+	ubyte[32] UNKNOWN_7E7C62;
+	ubyte UNKNOWN_7E7C82;
+
+	@Offset(0x007F04)
+	ubyte[6] UNKNOWN_7E7F04;
+	ubyte[26] UNKNOWN_7E7F0A;
+	ubyte[6] UNKNOWN_7E7F24;
+	ubyte[11] UNKNOWN_7E7F2A;
+	ubyte[5] UNKNOWN_7E7F35;
+	ubyte[7] UNKNOWN_7E7F3A;
+	ubyte[3] UNKNOWN_7E7F41;
+	ubyte[2] UNKNOWN_7E7F44;
+	ubyte[4] UNKNOWN_7E7F46;
+	ubyte[21] UNKNOWN_7E7F4A;
+
+	@Offset(0x008000)
+	ubyte UNKNOWN_7E8000;
+
+	@Offset(0x008650)
+	WindowStats[8] WINDOW_STATS_TABLE;
+	ushort UNKNOWN_7E88E0;
+	ushort UNKNOWN_7E88E2;
+	ubyte[116] WINDOW_EXISTENCE_TABLE;
+	ushort CURRENT_FOCUS_WINDOW;
+	ubyte UNKNOWN_7E895A;
+
+	@Offset(0x00895F)
+	ubyte UNKNOWN_7E895F;
+	ubyte UNKNOWN_7E8960;
+
+	@Offset(0x0089C9)
+	ubyte UNKNOWN_7E89C9;
+	ushort PSI_WINDOW_CHARACTER;
+	ushort UNKNOWN_7E89CC;
+	ushort UNKNOWN_7E89CE;
+	ushort UNKNOWN_7E89D0;
+	ushort UNKNOWN_7E89D2;
+	Unknown89D4Entry[70] UNKNOWN_7E89D4;
+	ubyte UNKNOWN_7E9622;
+	ubyte UNKNOWN_7E9623;
+	ubyte UNKNOWN_7E9624;
+	ushort SELECTED_TEXT_SPEED;
+	ushort UNKNOWN_7E9627;
+	ushort UNKNOWN_7E9629;
+
+	@Offset(0x009631)
+	//Text pointers?
+	uint[4] UNKNOWN_7E9631;
+	ushort UNKNOWN_7E9641;
+	ushort BATTLE_MODE_FLAG;
+	ushort INPUT_LOCK_FLAG;
+	ushort UNKNOWN_7E9647;
+	ushort UNKNOWN_7E9649;
+	ushort UNKNOWN_7E964B;
+	ushort BLINKING_TRIANGLE_FLAG;
+	ubyte UNKNOWN_7E964F;
+
+	@Offset(0x009652)
+	ushort UNKNOWN_7E9652;
+	ubyte UNKNOWN_7E9654;
+
+	@Offset(0x009658)
+	ushort UNKNOWN_7E9658;
+	ubyte UNKNOWN_7E965A;
+	ubyte[5] UNKNOWN_7E965B;
+	@Offset(0x009660)
+	ushort UNKNOWN_7E9660;
+	ushort UNKNOWN_7E9662;
+
+	@Offset(0x009684)
+	ushort UNKNOWN_7E9684;
+	ushort UNKNOWN_7E9686;
+	ushort UNKNOWN_7E9688;
+	ushort UNKNOWN_7E968A;
+	ubyte UNKNOWN_7E968C;
+	uint UNKNOWN_7E968D;
+	uint UNKNOWN_7E9691;
+	ushort UNKNOWN_7E9695;
+	ubyte UNKNOWN_7E9697;
+	ushort UNKNOWN_7E9698;
+	ushort[4] UNKNOWN_7E969A;
+	ushort[4] UNKNOWN_7E96A2;
+	ubyte UNKNOWN_7E96AA;
+	ubyte[269] UNKNOWN_7E96AB;
+	@Offset(0x0097B8)
+	ushort UNKNOWN_7E97B8;
+	ubyte CC_ARGUMENT_STORAGE;
+
+	@Offset(0x0097CA)
+	ushort CC_ARGUMENT_GATHERING_LOOP_COUNTER;
+	ubyte[4] WRAM_SCRIPT_WORK_MEMORY;
+	ubyte[4] WRAM_SCRIPT_ARG_MEMORY;
+	ubyte[4] WRAM_SCRIPT_SEC_MEMORY;
+
+	@Offset(0x0097D5)
+	ubyte UNKNOWN_7E97D5;
+	ubyte UNKNOWN_7E97D6;
+	@Offset(0x0097D7)
+	ubyte UNKNOWN_7E97D7;
+	ubyte[3] UNKNOWN_7E97D8;
+	ubyte UNKNOWN_7E97DA;
+	GameState gameState;
+	Character[6] partyMembers;
+	ubyte[80] eventFlags;
+	ubyte[852] k;
+	Battler[30] battlers;
+	ubyte[22320] raw2;
+	//$7F0000
+	ubyte[64] buf1;
+	ubyte[48] buf2;
+	ubyte[144] buf3;
+	ubyte[256] buf4;
+	ubyte[512] buf5;
+	ubyte[240] buf6;
+	ubyte[256] buf7;
+	ubyte[16] buf8;
+	ubyte[256] buf9;
+	ubyte[256] buf10;
+	ubyte[64] buf11;
+	ubyte[192] buf12;
+	ubyte[256] buf13;
+	ubyte[512] buf14;
+	ubyte[1024] buf15;
+	ubyte[4096] buf16;
+	ubyte[2560] buf17;
+	ubyte[512] buf18;
+	ubyte[1024] buf19;
+	ubyte[512] buf20;
+	ubyte[3584] buf21;
+	ubyte[12288] buf22;
+	ubyte[2048] buf23;
+	ubyte[1024] buf24;
+	ubyte[256] buf25;
+	ubyte[256] buf27;
+	ubyte[256] buf28;
+	ubyte[256] buf29;
+	ubyte[30720] buf30;
+	ubyte[2048] tileCollisionBuffer;
+}
+
+//static assert(RAM.sizeof == 0x20000);
