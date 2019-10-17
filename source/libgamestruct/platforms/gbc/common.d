@@ -27,3 +27,14 @@ align(1) struct GBCHeader {
 	ubyte headerChecksum;
 	ushort globalChecksum;
 }
+
+align(1) struct GBCTile {
+	import siryul : SerializationMethod;
+	align(1):
+	ubyte[16] raw;
+	@SerializationMethod
+	string toBase64() @safe {
+		import std.base64 : Base64;
+		return Base64.encode(raw[]);
+	}
+}
