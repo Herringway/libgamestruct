@@ -2,7 +2,7 @@ module libgamestruct.mmbn.mmbn1;
 
 import libgamestruct.mmbn.common;
 
-import pixelatrix.color;
+import magicalrainbows.formats;
 
 import std.algorithm;
 import std.format;

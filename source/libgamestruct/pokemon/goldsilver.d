@@ -3,7 +3,7 @@ module libgamestruct.pokemon.goldsilver;
 import libgamestruct.common;
 import libgamestruct.platforms.gbc;
 
-import pixelatrix.color;
+import magicalrainbows.formats;
 
 align(1) struct PokemonGS {
 	enum extension = "gbc";

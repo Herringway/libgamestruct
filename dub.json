@@ -8,6 +8,7 @@
 	"name": "libgamestruct",
 	"dependencies": {
 		"reversineer": "~>0.0",
-		"pixelatrix": "*"
+		"magicalrainbows": "~>0.0",
+		"siryul": "~>0.5"
 	}
 }

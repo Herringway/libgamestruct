@@ -3,7 +3,7 @@ module libgamestruct.mother.mother2;
 import libgamestruct.common;
 import libgamestruct.platforms.snes;
 
-import pixelatrix.color;
+import magicalrainbows.formats;
 
 align(1) struct Earthbound {
 	align(1):
